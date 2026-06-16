@@ -1,0 +1,3 @@
+[submodule "vendor/mcp-latex-server"]
+	path = vendor/mcp-latex-server
+	url = https://github.com/RobertoDure/mcp-latex-server
