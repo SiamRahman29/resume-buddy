@@ -4,10 +4,10 @@
       "type": "stdio",
       "command": "uv",
       "args": [
-        "--directory",
-        "vendor/mcp-latex-server",
         "run",
-        "latex_server.py"
+        "--project",
+        "vendor/mcp-latex-server",
+        "vendor/mcp-latex-server/latex_server.py"
       ],
       "env": {
         "LATEX_SERVER_BASE_PATH": "."
