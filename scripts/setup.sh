@@ -5,8 +5,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "Initializing git submodules..."
-git submodule update --init --recursive
+# The MCP LaTeX server is vendored under vendor/mcp-latex-server (no submodule).
+# This script just pre-warms its Python deps and checks for LaTeX. `uv run` also
+# installs deps automatically on first launch, so this step is optional.
 
 if ! command -v uv >/dev/null 2>&1; then
   echo "error: uv is not installed. See https://docs.astral.sh/uv/getting-started/installation/" >&2

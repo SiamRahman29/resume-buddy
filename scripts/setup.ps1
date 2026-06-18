@@ -4,8 +4,9 @@ $Root = Split-Path -Parent $PSScriptRoot
 
 Set-Location $Root
 
-Write-Host "Initializing git submodules..."
-git submodule update --init --recursive
+# The MCP LaTeX server is vendored under vendor/mcp-latex-server (no submodule).
+# This script just pre-warms its Python deps and checks for LaTeX. `uv run` also
+# installs deps automatically on first launch, so this step is optional.
 
 if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {
     Write-Error "uv is not installed. Install from https://docs.astral.sh/uv/getting-started/installation/"
