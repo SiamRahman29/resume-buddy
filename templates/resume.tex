@@ -1,0 +1,87 @@
+% Resume Buddy — starter template
+% Compiles with pdflatex (no exotic classes). Standard packages only:
+% geometry, enumitem, titlesec, hyperref, xcolor.
+%
+% This file is COMMITTED scaffolding. When a user arrives with only a .md/.pdf,
+% the agent copies this to data/resume.tex and fills in the content.
+% Once filled, data/resume.tex is the editable master.
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[margin=0.6in]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+
+% --- Layout tuning -----------------------------------------------------------
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\definecolor{accent}{HTML}{1A1A1A}
+
+% Section headings: small caps, rule underneath
+\titleformat{\section}{\large\bfseries\scshape\color{accent}}{}{0pt}{}[\titlerule]
+\titlespacing{\section}{0pt}{10pt}{6pt}
+
+% --- Reusable macros ---------------------------------------------------------
+% Header block: \name, contact line
+\newcommand{\resumename}[1]{\begin{center}\textbf{\Huge #1}\end{center}}
+\newcommand{\contact}[1]{\begin{center}\small #1\end{center}\vspace{2pt}}
+
+% One role/entry: title, right-aligned dates, then subtitle, right-aligned location
+\newcommand{\entry}[4]{%
+  \noindent\textbf{#1}\hfill{\small #2}\\
+  \textit{#3}\hfill{\small\textit{#4}}\par\vspace{2pt}}
+
+% Bullet list with tight spacing
+\newenvironment{points}
+  {\begin{itemize}[leftmargin=1.4em,topsep=2pt,itemsep=1pt,parsep=0pt]}
+  {\end{itemize}}
+
+% =============================================================================
+\begin{document}
+
+\resumename{Full Name}
+\contact{City, Country \;|\; +1 555 555 5555 \;|\;
+  \href{mailto:you@example.com}{you@example.com} \;|\;
+  \href{https://linkedin.com/in/handle}{linkedin.com/in/handle} \;|\;
+  \href{https://github.com/handle}{github.com/handle}}
+
+% --- Experience --------------------------------------------------------------
+\section{Experience}
+
+\entry{Job Title}{Mon. YYYY -- Present}{Company \textnormal{|} \textit{Tech, Stack, Here}}{City, Country}
+\begin{points}
+  \item Achievement with a concrete, quantified result (raised X from A\% to B\%).
+  \item Scope and impact: what you built, for whom, and the outcome.
+\end{points}
+
+\entry{Previous Title}{Mon. YYYY -- Mon. YYYY}{Company \textnormal{|} \textit{Tech, Stack}}{City, Country}
+\begin{points}
+  \item Quantified accomplishment.
+  \item Another bullet.
+\end{points}
+
+% --- Education ---------------------------------------------------------------
+\section{Education}
+
+\entry{University Name}{Mon. YYYY -- Mon. YYYY}{Degree, Major}{City, Country}
+\begin{points}
+  \item GPA, honors, relevant awards.
+\end{points}
+
+% --- Projects ----------------------------------------------------------------
+\section{Projects}
+
+\entry{Project Name}{Mon. YYYY -- Present}{\textit{Tech, Stack}}{}
+\begin{points}
+  \item What it does and why it matters.
+\end{points}
+
+% --- Skills ------------------------------------------------------------------
+\section{Skills}
+
+\textbf{Languages}: list \\
+\textbf{Tools \& Frameworks}: list
+
+\end{document}

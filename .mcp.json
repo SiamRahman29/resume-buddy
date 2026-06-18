@@ -6,8 +6,8 @@
       "args": [
         "run",
         "--project",
-        "vendor/mcp-latex-server",
-        "vendor/mcp-latex-server/latex_server.py"
+        "${CLAUDE_PLUGIN_ROOT}/vendor/mcp-latex-server",
+        "${CLAUDE_PLUGIN_ROOT}/vendor/mcp-latex-server/latex_server.py"
       ],
       "env": {
         "LATEX_SERVER_BASE_PATH": "."
