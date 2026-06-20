@@ -6,33 +6,41 @@ A Claude Code **plugin** for working on resumes in LaTeX. It bundles the
 
 ## The model
 
-- **Master = `data/resume.tex`.** This is the single source of truth and the file
-  the agent edits. Everything else is input or output.
-- **`data/inbox/`** is the drop zone for a user's existing resume (`.tex`, `.md`,
-  or `.pdf`).
-- **`data/build/`** holds compiled PDFs and LaTeX aux/log files (disposable).
-- **`data/` is gitignored** — personal content never lands in version control.
-- **`templates/resume.tex`** is committed starter scaffolding, used only when a user
-  arrives without LaTeX (a `.md`/`.pdf`).
+- **The master is a `.tex` file you resolve per session**, not a fixed path. It's the
+  resume the user already keeps in the working directory, or one they name. There is
+  no `data/` scaffolding to create.
+- **Persist the master's path to memory** (a `project` memory) so every skill agrees
+  on the current file. Resolve it once, record it, reuse it.
+- **Builds go in a `build/` folder next to the master** — compiled PDFs and LaTeX
+  aux/log files (disposable, regenerable).
+- **`templates/resume.tex`** is committed starter scaffolding, seeded only when a user
+  arrives with no resume at all.
+- **Never touch the user's `.gitignore`.** They may not be in a git repo, and whether
+  the resume or build artifacts are tracked is their call.
 
 ## Workflow rules for the agent
 
-- **Bring-your-own-`.tex` is the primary path.** If the user has a `.tex`, it
-  becomes `data/resume.tex` and you edit it directly — no template, no conversion.
+- **Resolve the master first.** Check memory for a recorded master path. If none, look
+  for a `.tex` in the working directory; if exactly one, adopt it; if several or none,
+  ask the user (or take a path they name). Record the result to memory.
+- **Bring-your-own-`.tex` is the primary path.** If the user has a `.tex`, that file IS
+  the master — edit it in place. No template, no conversion, no copying.
 - **`.md`/`.pdf` is the fallback path.** Fill `templates/resume.tex` with the user's
-  real content (map meaning into the macros — do not mechanically convert).
-- **LaTeX is master; re-drops are merges, not overwrites.** If the user later drops
-  an updated file while a master exists, treat it as an incoming patch: diff against
-  `data/resume.tex`, propose specific changes, confirm, then apply. Never clobber the
-  master and wipe manual LaTeX tweaks.
-- **Which file is current?** Rely on user instructions and persistent memory, not
-  on bookkeeping files. The master is always `data/resume.tex`.
+  real content (map meaning into the macros — do not mechanically convert), and write
+  the result as a `.tex` in the working directory.
+- **LaTeX is master; re-drops are merges, not overwrites.** If the user later drops an
+  updated file, treat it as an incoming patch: diff against the master, propose
+  specific changes, confirm, then apply. Never clobber the master and wipe manual
+  LaTeX tweaks.
+- **Which file is current?** Persistent memory first, then the working directory — not
+  bookkeeping files.
 
 ## Skills
 
-- `resume-init` — scaffold `data/` and seed a starter master for a new user.
+- `resume-init` — seed a starter master in the working directory for a user with no
+  resume yet, and record it to memory.
 - `resume-import` — bring an existing resume in (first import or re-import/merge).
-- `resume-build` — compile the master to PDF in `data/build/`.
+- `resume-build` — compile the master to a PDF in `build/`.
 - `resume-tailor` — tailor the master (or a variant) to a job description.
 
 ## LaTeX MCP tools (`latex-server`)
