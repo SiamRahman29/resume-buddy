@@ -68,3 +68,5 @@ Files are read/written relative to the user's working directory
 
 - A LaTeX distribution must be on `PATH` for compilation (MiKTeX / MacTeX / TeX Live).
 - `uv` runs the Python server; `uv run` auto-installs dependencies on first launch.
+- `scripts/setup.ps1` (Windows) / `scripts/setup.sh` (macOS/Linux) install `uv` and
+  pre-warm the server's dependencies; the LaTeX engine is installed separately.
