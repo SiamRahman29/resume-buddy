@@ -1,0 +1,78 @@
+name: Release on version bump
+
+# Cuts a GitHub Release whenever the `version` in .claude-plugin/plugin.json
+# changes on main. The release is the version bump itself — this workflow only
+# handles the tag + GitHub Release housekeeping. It does NOT change how users
+# receive updates (that stays the pull-based, version-pinned marketplace flow).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".claude-plugin/plugin.json"
+
+# Avoid overlapping runs if several commits land quickly.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write # create tags and releases
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read plugin version
+        id: version
+        run: |
+          version=$(jq -r '.version' .claude-plugin/plugin.json)
+          if [ -z "$version" ] || [ "$version" = "null" ]; then
+            echo "No version field in .claude-plugin/plugin.json" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if release already exists
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ steps.version.outputs.tag }}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists — nothing to do."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract changelog notes
+        if: steps.check.outputs.exists == 'false'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          awk -v ver="$VERSION" '
+            BEGIN { header = "## [" ver "]" }
+            index($0, header) == 1 { capture=1; next }
+            capture && index($0, "## ") == 1 { exit }
+            capture && /^\[/ { exit }
+            capture { print }
+          ' CHANGELOG.md | sed -e '/./,$!d' | sed -e :a -e '/^\n*$/{$d;N;ba}' > release_notes.md
+          if [ ! -s release_notes.md ]; then
+            echo "Release v$VERSION. See CHANGELOG.md for details." > release_notes.md
+          fi
+
+      - name: Create release
+        if: steps.check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+          SHA: ${{ github.sha }}
+        run: |
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --target "$SHA" \
+            --notes-file release_notes.md
