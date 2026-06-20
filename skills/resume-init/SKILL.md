@@ -1,41 +1,36 @@
 ---
 name: resume-init
-description: This skill should be used when the user wants to set up Resume Buddy for the first time, asks to "start a resume", "scaffold my resume", "set up resume buddy", "create the data folder", or is a brand-new user with no resume yet. Creates the data/ working layout and seeds a starter LaTeX resume.
-version: 0.1.0
+description: This skill should be used when the user wants to set up Resume Buddy for the first time, asks to "start a resume", "scaffold my resume", "set up resume buddy", or is a brand-new user with no resume yet. Seeds a starter LaTeX resume in the working directory and records it as the master.
+version: 0.2.0
 allowed-tools: [Bash, Read, Write, mcp__latex-server__validate_latex]
 ---
 
 # resume-init
 
-Scaffold a working directory for Resume Buddy in the user's current project.
+Start a resume from scratch for a user who has nothing to import yet.
 
 ## When to use
-- First-time setup, or the user has no `data/resume.tex` yet.
-- The user wants a blank resume to start from (no existing resume to import).
-  If they DO have an existing resume to bring in, use **resume-import** instead.
-
-## Layout this skill creates
-```
-data/                 # gitignored — personal content
-  inbox/              # drop zone for existing resumes (.tex / .md / .pdf)
-  resume.tex          # MASTER — the editable LaTeX resume (source of truth)
-  build/              # compiled PDF + LaTeX aux/log files (disposable)
-```
+- Brand-new user with no existing resume — they want a blank slate to build on.
+- If the user already HAS a resume (a `.tex` in the working directory, or a
+  `.md`/`.pdf` to bring in), use **resume-import** instead — there is nothing to
+  scaffold.
 
 ## Steps
-1. Confirm there is no `data/resume.tex` already. If one exists, stop and tell the
-   user — do not overwrite a master. Suggest editing it or running resume-import.
-2. Create `data/inbox/` and `data/build/` (add a `.gitkeep` to each).
-3. Ensure `data/` is gitignored in the working directory. If a `.gitignore`
-   exists and lacks a `data/` entry, append one; if there's no `.gitignore` and
-   the directory is a git repo, create one with `data/`. This keeps personal
-   content out of version control.
-4. Seed the master from the bundled starter template:
-   copy `${CLAUDE_PLUGIN_ROOT}/templates/resume.tex` to `data/resume.tex`.
-5. Validate it with `validate_latex` on `data/resume.tex`.
-6. Tell the user: edit `data/resume.tex` directly, or drop an existing resume into
-   `data/inbox/` and ask to import it. To produce a PDF, use **resume-build**.
+1. Check whether a master already exists: look in persistent memory for a recorded
+   master, then for a `.tex` in the working directory. If one exists, stop and tell
+   the user — do not overwrite it. Point them at resume-import (to merge) or at
+   editing it directly.
+2. Pick the master's filename in the working directory (default `resume.tex`; honor a
+   name the user prefers).
+3. Seed it from the bundled starter: copy
+   `${CLAUDE_PLUGIN_ROOT}/templates/resume.tex` to that path.
+4. `validate_latex` on the new file.
+5. Record the master's path to persistent memory (a `project` memory) so the other
+   skills resolve the same file.
+6. Tell the user: edit the master directly, then run **resume-build** for a PDF.
 
 ## Notes
-- The master is always `data/resume.tex`. Everything else is input or output.
-- Keep personal content under `data/` so it stays gitignored.
+- No `data/` layout and no folders to create up front — the resume just lives in the
+  working directory. Build artifacts get their own `build/` folder at build time.
+- Don't touch the user's `.gitignore`; they may not be in a git repo, and tracking is
+  their call.
