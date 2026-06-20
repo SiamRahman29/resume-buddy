@@ -10,8 +10,6 @@ template), then tell the AI what you want ("add my new job at Acme", "tighten th
 summary", "tailor this for a senior backend role"), and it edits the LaTeX and
 produces an updated PDF.
 
-![Architecture diagram](docs/architecture.png)
-
 ---
 
 ## How it works
