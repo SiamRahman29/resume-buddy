@@ -10,6 +10,8 @@ template), then tell the AI what you want ("add my new job at Acme", "tighten th
 summary", "tailor this for a senior backend role"), and it edits the LaTeX and
 produces an updated PDF.
 
+![Architecture diagram](docs/architecture.png)
+
 ---
 
 ## How it works
@@ -37,16 +39,39 @@ produces an updated PDF.
 | Tool | Purpose | Install |
 |---|---|---|
 | [Claude Code](https://code.claude.com/) | AI front-end + plugin host | See link |
-| [uv](https://docs.astral.sh/uv/getting-started/installation/) | Runs the Python MCP server | `pip install uv` or installer |
-| A LaTeX distribution | Compiles `.tex` → PDF | See below |
+| [uv](https://docs.astral.sh/uv/) | Runs the Python MCP server | `scripts/setup` installs it, or one line (below) |
+| A LaTeX engine | Compiles `.tex` → PDF | TinyTeX recommended (below) |
 
-**LaTeX distributions:**
+### LaTeX engine
 
-- **Windows** — [MiKTeX](https://miktex.org/download) (installs packages on demand)
-- **macOS** — [MacTeX](https://www.tug.org/mactex/)
-- **Linux** — `sudo apt install texlive-full` (or your distro's equivalent)
+The one piece you install by hand is a LaTeX engine that provides `pdflatex` —
+that's what the bundled server calls to make PDFs. We recommend
+**[TinyTeX](https://yihui.org/tinytex/)**: a lightweight (~150 MB), cross-platform
+LaTeX distribution that installs **without admin rights** and fetches extra
+packages on demand.
 
-Verify it's on your `PATH`: `pdflatex --version`
+- **macOS / Linux**
+  ```
+  curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+  ```
+- **Windows** (PowerShell, no admin)
+  ```
+  Invoke-WebRequest https://yihui.org/tinytex/install-bin-windows.bat -OutFile install-tinytex.bat; ./install-tinytex.bat
+  ```
+
+Restart your shell, then verify it's on your `PATH`: `pdflatex --version`.
+
+If a compile reports a missing package, install it with `tlmgr install <package>`
+(TinyTeX bundles `tlmgr`). Already have **MiKTeX**, **MacTeX**, or **TeX Live**?
+Those work too — any distribution that puts `pdflatex` on your `PATH` is fine.
+
+### uv
+
+`scripts/setup.ps1` (Windows) / `scripts/setup.sh` (macOS/Linux) installs `uv`
+for you. To install it by hand instead:
+
+- **macOS / Linux** — `curl -LsSf https://astral.sh/uv/install.sh | sh`
+- **Windows** — `irm https://astral.sh/uv/install.ps1 | iex`
 
 ---
 
@@ -82,9 +107,9 @@ git clone https://github.com/SiamRahman29/resume-buddy
 /plugin install resume-buddy@resume-buddy
 ```
 
-Optionally pre-warm the Python deps and check LaTeX with `scripts/setup.ps1`
-(Windows) or `scripts/setup.sh` (macOS/Linux). `uv run` also installs deps
-automatically on first launch.
+Run `scripts/setup.ps1` (Windows) or `scripts/setup.sh` (macOS/Linux) to install
+`uv`, pre-warm the server's Python deps, and check for a LaTeX engine. (`uv run`
+also installs deps automatically on first launch.)
 
 ---
 
