@@ -69,16 +69,6 @@ automatically on first launch.
 
 ---
 
-## How it works
-
-- **The master is a `.tex` file you keep in your working directory** — the single
-  source of truth the AI edits. Resume Buddy resolves it per session and remembers
-  which file it is; there's no fixed path or `data/` folder to set up.
-- **Bring your own `.tex`** and that file *is* the master — edited in place.
-- **No LaTeX yet?** Bring a `.md` or `.pdf` and the AI fills the committed
-  `templates/resume.tex` starter with your real content.
-- **Compiled PDFs land in a `build/` folder** next to the master (disposable).
-
 ### Skills
 
 | Skill | What it does |
@@ -124,3 +114,15 @@ Add a position: Senior Engineer at Acme Corp, Jan 2024–present. Focus on distr
 | Compile fails with LaTeX errors | Ask the AI to `validate_latex` first; it shows the error |
 | `pdflatex` not found | Install MiKTeX / MacTeX / TeX Live and ensure it's on `PATH` |
 | Server rejected earlier | `claude mcp reset-project-choices` |
+
+---
+
+## How it works
+
+- **The master is a `.tex` file you keep in your working directory** — the single
+  source of truth the AI edits. Resume Buddy resolves it per session and remembers
+  which file it is; there's no fixed path or `data/` folder to set up.
+- **Bring your own `.tex`** and that file *is* the master — edited in place.
+- **No LaTeX yet?** Bring a `.md` or `.pdf` and the AI fills the committed
+  `templates/resume.tex` starter with your real content.
+- **Compiled PDFs land in a `build/` folder** next to the master (disposable).
