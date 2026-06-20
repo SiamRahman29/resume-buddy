@@ -21,6 +21,7 @@ flowchart TB
         import[resume-import: adopt .tex or map .md/.pdf into LaTeX]
         build[resume-build: validate and compile PDF]
         tailor[resume-tailor: tailor master or variant to a JD]
+        analyze[resume-analyze: ATS screen + 7-second scan + coach read on a JD, read-only]
     end
 
     subgraph mcp[latex-server MCP]
@@ -60,6 +61,7 @@ flowchart TB
     agent --> import
     agent --> build
     agent --> tailor
+    agent --> analyze
 
     init -->|copies starter only when needed| template
     init -->|creates and records| master
@@ -68,11 +70,13 @@ flowchart TB
     tailor -->|edits| master
     tailor -->|or creates| variant
     build -->|writes disposable artifacts| output
+    analyze -->|reads, never edits| master
 
     init --> tools
     import --> tools
     build --> tools
     tailor --> tools
+    analyze --> tools
 
     mcpConfig -->|uv run --project vendor/mcp-latex-server| stdio
     uv --> stdio
@@ -97,7 +101,7 @@ flowchart TB
     classDef external fill:#f2f2f2,stroke:#7f7f7f,color:#172033
 
     class agent,rules,memory,registry,manifest,mcpConfig host
-    class init,import,build,tailor skill
+    class init,import,build,tailor,analyze skill
     class stdio,tools,create,edit,validate,compile mcp
     class template,vendor,incoming,master,variant,output file
     class uv,latex external
