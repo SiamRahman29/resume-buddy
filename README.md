@@ -63,9 +63,9 @@ git clone https://github.com/SiamRahman29/resume-buddy
 /plugin install resume-buddy@resume-buddy
 ```
 
-Run `scripts/setup.ps1` (Windows) or `scripts/setup.sh` (macOS/Linux) to install
-`uv`, pre-warm the server's Python deps, and check for a LaTeX engine. (`uv run`
-also installs deps automatically on first launch.)
+As long as `uv` is on your `PATH` (see Prerequisites), nothing else is needed — the
+`latex-server` MCP launches via `uv run`, which installs the server's Python deps
+automatically on first launch.
 
 ---
 
