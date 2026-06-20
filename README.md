@@ -29,6 +29,7 @@ produces an updated PDF.
 | `/resume-import` | Bring in an existing resume (`.tex` directly, or fill the template from `.md`/`.pdf`); re-imports merge into the master |
 | `/resume-build` | Compile the master to a PDF in `data/build/` |
 | `/resume-tailor` | Tailor the resume (or a variant) to a pasted job description |
+| `/resume-analyze` | Three passes vs. a pasted JD: ATS keyword screen (match score + missing keywords), 7-second hiring-manager scan (first impression, move-forward), and a coach's read (apply/no-go, interview probability, top 3 changes) — read-only |
 
 ---
 
@@ -146,7 +147,8 @@ resume-buddy/
 │   ├── resume-init/SKILL.md
 │   ├── resume-import/SKILL.md
 │   ├── resume-build/SKILL.md
-│   └── resume-tailor/SKILL.md
+│   ├── resume-tailor/SKILL.md
+│   └── resume-analyze/SKILL.md
 ├── templates/
 │   └── resume.tex         # Committed starter template
 ├── scripts/               # Optional local-dev setup helpers
