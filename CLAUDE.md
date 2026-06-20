@@ -42,6 +42,16 @@ A Claude Code **plugin** for working on resumes in LaTeX. It bundles the
 - `resume-import` — bring an existing resume in (first import or re-import/merge).
 - `resume-build` — compile the master to a PDF in `build/`.
 - `resume-tailor` — tailor the master (or a variant) to a job description.
+- `resume-summarize` — rewrite the top-of-resume summary (3–4 sentences) for a target
+  role so a recruiter's 5-second skim lands the user as the right fit; specific, no
+  generic phrases (offers to drop it into the master).
+- `resume-analyze` — three passes on a resume vs. a JD: ATS keyword screen (match score +
+  missing keywords), 7-second hiring-manager scan (first impression, move-forward yes/no),
+  and a coach's read (apply/no-go, interview probability, top changes). Read-only; advises,
+  doesn't edit.
+- `cover-letter-write` — write a three-paragraph cover letter grounded in the current
+  resume and a JD (why this company, one proof story, confident close; never repeats the
+  resume).
 
 ## LaTeX MCP tools (`latex-server`)
 
