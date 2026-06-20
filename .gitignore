@@ -1,1 +1,7 @@
+# Local dev-test artifacts (testing the plugin from inside this repo)
+build/
+/resume.tex
+/resume-*.tex
+
+# Legacy working dir from the old data/ model
 data/

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="860" viewBox="0 0 1280 860" role="img" aria-labelledby="title desc">
+  <title id="title">Resume Buddy Architecture</title>
+  <desc id="desc">Architecture diagram for the Resume Buddy Claude Code plugin, showing the Claude Code host, workflow skills, LaTeX MCP server, plugin files, user working directory, and external dependencies.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#ea580c"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 16px Arial, sans-serif; fill: #475569; }
+      .lane-title { font: 700 16px Arial, sans-serif; fill: #334155; letter-spacing: .04em; }
+      .card-title { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+      .card-text { font: 400 13px Arial, sans-serif; fill: #334155; }
+      .small { font: 400 12px Arial, sans-serif; fill: #475569; }
+      .host { fill: #eaf2ff; stroke: #2563eb; stroke-width: 2; }
+      .skill { fill: #ecfdf3; stroke: #16a34a; stroke-width: 2; }
+      .mcp { fill: #fff7ed; stroke: #ea580c; stroke-width: 2; }
+      .file { fill: #ecfeff; stroke: #0891b2; stroke-width: 2; }
+      .plugin { fill: #f5f3ff; stroke: #7c3aed; stroke-width: 2; }
+      .external { fill: #f1f5f9; stroke: #64748b; stroke-width: 2; }
+      .lane { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .arrow { stroke: #334155; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .arrow-blue { stroke: #2563eb; stroke-width: 2.2; fill: none; marker-end: url(#arrow-blue); }
+      .arrow-green { stroke: #16a34a; stroke-width: 2.2; fill: none; marker-end: url(#arrow-green); }
+      .arrow-orange { stroke: #ea580c; stroke-width: 2.2; fill: none; marker-end: url(#arrow-orange); }
+      .dash { stroke-dasharray: 6 6; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1280" height="860"/>
+  <text x="640" y="44" text-anchor="middle" class="title">Resume Buddy - Architecture</text>
+  <text x="640" y="70" text-anchor="middle" class="subtitle">Claude Code plugin for importing, editing, validating, tailoring, and compiling LaTeX resumes</text>
+
+  <rect x="34" y="94" width="1212" height="102" rx="14" class="lane"/>
+  <text x="58" y="128" class="lane-title">USER</text>
+  <rect x="468" y="112" width="344" height="64" rx="10" class="host"/>
+  <text x="640" y="138" text-anchor="middle" class="card-title">User</text>
+  <text x="640" y="160" text-anchor="middle" class="card-text">Natural language requests or slash commands</text>
+
+  <rect x="34" y="210" width="1212" height="158" rx="14" class="lane"/>
+  <text x="58" y="244" class="lane-title">CLAUDE CODE HOST</text>
+  <rect x="192" y="236" width="284" height="104" rx="10" class="host"/>
+  <text x="334" y="263" text-anchor="middle" class="card-title">Claude AI Agent</text>
+  <text x="334" y="286" text-anchor="middle" class="card-text">Reads workflow rules</text>
+  <text x="334" y="306" text-anchor="middle" class="card-text">Uses project memory for master path</text>
+  <text x="334" y="326" text-anchor="middle" class="small">CLAUDE.md + persistent memory</text>
+
+  <rect x="532" y="236" width="284" height="104" rx="10" class="plugin"/>
+  <text x="674" y="263" text-anchor="middle" class="card-title">Plugin Registry</text>
+  <text x="674" y="286" text-anchor="middle" class="card-text">Installs Resume Buddy plugin</text>
+  <text x="674" y="306" text-anchor="middle" class="small">.claude-plugin/plugin.json</text>
+  <text x="674" y="326" text-anchor="middle" class="small">.claude-plugin/marketplace.json</text>
+
+  <rect x="872" y="236" width="284" height="104" rx="10" class="plugin"/>
+  <text x="1014" y="263" text-anchor="middle" class="card-title">MCP Configuration</text>
+  <text x="1014" y="286" text-anchor="middle" class="card-text">Registers latex-server over stdio</text>
+  <text x="1014" y="306" text-anchor="middle" class="small">.mcp.json</text>
+  <text x="1014" y="326" text-anchor="middle" class="small">LATEX_SERVER_BASE_PATH=.</text>
+
+  <rect x="34" y="382" width="1212" height="138" rx="14" class="lane"/>
+  <text x="58" y="416" class="lane-title">RESUME BUDDY SKILLS</text>
+  <rect x="126" y="430" width="230" height="64" rx="10" class="skill"/>
+  <text x="241" y="455" text-anchor="middle" class="card-title">resume-init</text>
+  <text x="241" y="477" text-anchor="middle" class="card-text">Seed starter when no resume exists</text>
+  <rect x="386" y="430" width="230" height="64" rx="10" class="skill"/>
+  <text x="501" y="455" text-anchor="middle" class="card-title">resume-import</text>
+  <text x="501" y="477" text-anchor="middle" class="card-text">Adopt .tex or map .md/.pdf</text>
+  <rect x="646" y="430" width="230" height="64" rx="10" class="skill"/>
+  <text x="761" y="455" text-anchor="middle" class="card-title">resume-build</text>
+  <text x="761" y="477" text-anchor="middle" class="card-text">Validate and compile PDF</text>
+  <rect x="906" y="430" width="230" height="64" rx="10" class="skill"/>
+  <text x="1021" y="455" text-anchor="middle" class="card-title">resume-tailor</text>
+  <text x="1021" y="477" text-anchor="middle" class="card-text">Tailor master or variant to JD</text>
+
+  <rect x="34" y="534" width="1212" height="142" rx="14" class="lane"/>
+  <text x="58" y="568" class="lane-title">LATEX MCP SERVER</text>
+  <rect x="176" y="580" width="268" height="64" rx="10" class="mcp"/>
+  <text x="310" y="605" text-anchor="middle" class="card-title">latex-server MCP</text>
+  <text x="310" y="627" text-anchor="middle" class="card-text">stdio server launched by uv</text>
+  <rect x="486" y="568" width="620" height="88" rx="10" class="mcp"/>
+  <text x="796" y="593" text-anchor="middle" class="card-title">MCP Tool Surface</text>
+  <text x="796" y="617" text-anchor="middle" class="card-text">create_latex_file, create_from_template, read_latex_file, edit_latex_file, list_latex_files</text>
+  <text x="796" y="638" text-anchor="middle" class="card-text">validate_latex, get_latex_structure, compile_latex</text>
+
+  <rect x="34" y="690" width="1212" height="118" rx="14" class="lane"/>
+  <text x="58" y="724" class="lane-title">FILES AND DEPENDENCIES</text>
+  <rect x="142" y="734" width="202" height="48" rx="10" class="file"/>
+  <text x="243" y="754" text-anchor="middle" class="card-title">Working directory</text>
+  <text x="243" y="773" text-anchor="middle" class="small">incoming .tex/.md/.pdf</text>
+  <rect x="378" y="724" width="202" height="68" rx="10" class="file"/>
+  <text x="479" y="748" text-anchor="middle" class="card-title">Master .tex</text>
+  <text x="479" y="768" text-anchor="middle" class="card-text">single source of truth</text>
+  <text x="479" y="786" text-anchor="middle" class="small">resolved per session</text>
+  <rect x="614" y="724" width="202" height="68" rx="10" class="file"/>
+  <text x="715" y="748" text-anchor="middle" class="card-title">build/</text>
+  <text x="715" y="768" text-anchor="middle" class="card-text">next to master</text>
+  <text x="715" y="786" text-anchor="middle" class="small">PDF and aux files</text>
+  <rect x="850" y="724" width="202" height="68" rx="10" class="file"/>
+  <text x="951" y="748" text-anchor="middle" class="card-title">templates/resume.tex</text>
+  <text x="951" y="768" text-anchor="middle" class="card-text">starter scaffolding</text>
+  <text x="951" y="786" text-anchor="middle" class="small">plugin-owned file</text>
+  <rect x="1086" y="724" width="116" height="68" rx="10" class="external"/>
+  <text x="1144" y="748" text-anchor="middle" class="card-title">External</text>
+  <text x="1144" y="768" text-anchor="middle" class="small">uv + LaTeX</text>
+  <text x="1144" y="786" text-anchor="middle" class="small">distribution</text>
+
+  <path d="M640 176 L640 224" class="arrow-blue"/>
+  <path d="M476 288 L532 288" class="arrow"/>
+  <path d="M816 288 L872 288" class="arrow"/>
+  <path d="M334 340 L334 410 L241 410 L241 430" class="arrow-green"/>
+  <path d="M334 340 L334 410 L501 410 L501 430" class="arrow-green"/>
+  <path d="M334 340 L334 410 L761 410 L761 430" class="arrow-green"/>
+  <path d="M334 340 L334 410 L1021 410 L1021 430" class="arrow-green"/>
+  <path d="M1014 340 L1014 548 L444 548 L444 612" class="arrow-orange"/>
+  <path d="M241 494 L241 550 L486 550 L486 592" class="arrow-green"/>
+  <path d="M501 494 L501 568" class="arrow-green"/>
+  <path d="M761 494 L761 568" class="arrow-green"/>
+  <path d="M1021 494 L1021 568" class="arrow-green"/>
+  <path d="M444 612 L486 612" class="arrow-orange"/>
+  <path d="M243 734 L243 706 L479 706 L479 724" class="arrow"/>
+  <path d="M501 494 L501 700 L479 700 L479 724" class="arrow-green"/>
+  <path d="M761 494 L761 700 L715 700 L715 724" class="arrow-green"/>
+  <path d="M1021 494 L1021 700 L479 700 L479 724" class="arrow-green dash"/>
+  <path d="M951 724 L951 694 L241 694 L241 494" class="arrow dash"/>
+  <path d="M310 644 L310 694 L479 694 L479 724" class="arrow-orange"/>
+  <path d="M796 656 L796 704 L715 704 L715 724" class="arrow-orange"/>
+  <path d="M1106 612 L1144 612 L1144 724" class="arrow-orange"/>
+
+  <rect x="38" y="816" width="1204" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="56" y="834" class="small">Current model: the master is a user-owned .tex file resolved per session; build artifacts live in build/ next to that master; the plugin never requires a data/ scaffold.</text>
+</svg>
