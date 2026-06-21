@@ -10,6 +10,7 @@ tell the AI what you want ("add my new job at Acme", "tighten the summary", "tai
 this for a senior backend role"), and it edits the LaTeX and produces an updated PDF.
 
 This plugin incorporates prompts and techniques from [@jerryjhlee](https://www.instagram.com/jerryjhlee). Check out his account for more career advice!
+
 ---
 
 ## Prerequisites
