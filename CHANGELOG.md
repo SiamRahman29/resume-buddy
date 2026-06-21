@@ -11,6 +11,21 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-21
+
+### Changed
+- `resume-import`: tightened instructions to stick to the user's source material and
+  name `.tex` files with timestamps.
+- `resume-build`: compile the resolved master and save outputs to a `build/` folder
+  alongside it.
+
+### Added
+- Version-bump-driven release automation: a GitHub Actions workflow tags and cuts a
+  GitHub Release whenever `version` changes on `main`.
+
+### Removed
+- Redundant setup scripts.
+
 ## [0.1.0] - 2026-06-20
 
 ### Added
@@ -20,5 +35,6 @@ update when that string changes (see [Releasing](README.md#releasing)).
   `resume-summarize`, `resume-analyze`, `cover-letter-write`.
 - Self-hosted plugin marketplace (`.claude-plugin/marketplace.json`).
 
-[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/SiamRahman29/resume-buddy/releases/tag/v0.1.0
