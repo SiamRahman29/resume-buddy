@@ -64,7 +64,9 @@ If you choose to install the plugin repo-only, you will only be able to use the 
 
 ### Getting Started
 
-In a session, drop an existing resume in the folder where claude code is running and run `/resume-import` or run `/resume-init` to scaffold a starter resume from our template.
+In a session, drop an existing resume in the folder where claude code is running and starting talking naturally. 
+
+Don't have a resume? Give claude information about yourself and ask it to create on for you.
 
 For local development, troubleshooting, and releasing, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
