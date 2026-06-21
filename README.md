@@ -11,25 +11,60 @@ this for a senior backend role"), and it edits the LaTeX and produces an updated
 
 ---
 
-## Prerequisites
+## Claude Code
 
-| Tool | Purpose | Install |
-|---|---|---|
-| [Claude Code](https://code.claude.com/) | AI front-end + plugin host | See link |
-| [uv](https://docs.astral.sh/uv/) | Runs the Python MCP server | `irm https://astral.sh/uv/install.ps1 \| iex` (Windows) · `curl -LsSf https://astral.sh/uv/install.sh \| sh` (macOS/Linux) |
-| A LaTeX engine | Compiles `.tex` → PDF | TinyTeX recommended (below) |
+**macOS/Linux/WSL**
+```
+curl -fsSL https://claude.ai/install.sh | bash
+```
 
-**LaTeX engine.** The bundled server calls `pdflatex` to make PDFs, so you need a
+**Windows (Powershell)**
+```
+irm https://claude.ai/install.ps1 | iex
+```
+
+**Windows (CMD)**
+```
+curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
+```
+## uv
+Runs the Python server with the LaTeX MCP
+
+**macOS/Linux/WSL**
+```
+curl -LsSf https://astral.sh/uv/install.sh \| sh
+```
+
+**Windows (Powershell)**
+```
+irm https://astral.sh/uv/install.ps1 \| iex
+```
+
+## LaTeX Engine
+**macOS/Linux/WSL**
+```
+curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
+```
+**Windows (Powershell)**
+```
+Invoke-WebRequest https://yihui.org/tinytex/install-bin-windows.bat -OutFile install-tinytex.bat; ./install-tinytex.bat
+```
+
+To verify after installation, run
+```
+pdflatex --version
+```
+If a compile reports a
+missing package, install it with `tlmgr install <package>`. 
+
+**Why do you need a LaTeX engine?** 
+
+The bundled server calls `pdflatex` to make PDFs, so you need a
 LaTeX distribution on your `PATH`. We recommend **[TinyTeX](https://yihui.org/tinytex/)**:
 lightweight (~150 MB), cross-platform, installs **without admin rights**, and fetches
 extra packages on demand.
 
-- **macOS / Linux** — `curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh`
-- **Windows** (PowerShell, no admin) — `Invoke-WebRequest https://yihui.org/tinytex/install-bin-windows.bat -OutFile install-tinytex.bat; ./install-tinytex.bat`
-
-Restart your shell and verify with `pdflatex --version`. If a compile reports a
-missing package, install it with `tlmgr install <package>`. Already have **MiKTeX**,
-**MacTeX**, or **TeX Live**? Any distribution with `pdflatex` on your `PATH` works.
+Already have **MiKTeX**, **MacTeX**, or **TeX Live**? Any distribution with `pdflatex` on your `PATH` works.
 
 ---
 
