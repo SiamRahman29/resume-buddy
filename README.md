@@ -41,7 +41,7 @@ Then start a claude code session. From inside claude code, run:
 /plugin install resume-buddy@resume-buddy
 ```
 
-If you choose to install the plugin repo-only, you will need to separately enable the plugin when working from other folders. 
+If you choose to install the plugin repo-only, you will only be able to use the plugin in the current folder.
 
 ---
 
@@ -58,7 +58,7 @@ Then start a claude code session. From inside claude code, run:
 /plugin marketplace add SiamRahman29/resume-buddy
 /plugin install resume-buddy@resume-buddy
 ```
-If you choose to install the plugin repo-only, you will need to separately enable the plugin when working from other folders.
+If you choose to install the plugin repo-only, you will only be able to use the plugin in the current folder.
 
 ---
 
