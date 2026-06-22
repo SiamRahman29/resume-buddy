@@ -11,6 +11,13 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-06-22
+
+### Changed
+- `resume-import`: added a typography iron rule requiring imports to reproduce the
+  font, size, weight, and color of every styled element verbatim (bold stays bold),
+  and widened the PDF capture step to inventory those four dimensions.
+
 ## [0.2.0] - 2026-06-22
 
 ### Added
@@ -49,7 +56,8 @@ update when that string changes (see [Releasing](README.md#releasing)).
   `resume-summarize`, `resume-analyze`, `cover-letter-write`.
 - Self-hosted plugin marketplace (`.claude-plugin/marketplace.json`).
 
-[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/SiamRahman29/resume-buddy/releases/tag/v0.1.0

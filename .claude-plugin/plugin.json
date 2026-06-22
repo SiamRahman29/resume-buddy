@@ -1,7 +1,7 @@
 {
   "name": "resume-buddy",
   "description": "LaTeX resume tooling for Claude Code. Bundles a LaTeX MCP server plus skills to import, build, and tailor resumes. Bring your own .tex (or a .md/.pdf and use the starter template); the agent edits the LaTeX master and compiles PDFs.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Siam Rahman",
     "email": "siam@graduate.utm.my"
