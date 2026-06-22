@@ -11,8 +11,7 @@ this for a senior backend role"), and it edits the LaTeX and produces an updated
 
 This plugin incorporates prompts and techniques from [@jerryjhlee](https://www.instagram.com/jerryjhlee). Check out his account for more career advice!
 
-The resume-writing standards the skills apply — bullet structure, action verbs, formatting,
-and what to include — are distilled from the [Dartmouth College CPD Resume Guide](https://www.dartmouth.edu/~cpd/),
+The plugin also incorporates principles and learnings distilled from the [Dartmouth College CPD Resume Guide](https://www.dartmouth.edu/~cpd/),
 captured in [`references/resume-principles.md`](references/resume-principles.md).
 
 ---
@@ -41,9 +40,6 @@ Then:
 ```
 curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
 ```
-> **Open a new terminal after this.** The TinyTeX installer adds `pdflatex` to your
-> `PATH`, but existing shells won't see it until they're restarted. (Sanity check in the
-> fresh terminal: `pdflatex --version`.)
 
 Then start a claude code session. From inside claude code, run:
 ```
