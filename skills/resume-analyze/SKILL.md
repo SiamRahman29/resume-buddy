@@ -89,6 +89,9 @@ lands on, don't analyze line by line (that's Part 3).
 ## Handoff
 - If the user wants to act on the changes, hand off to **resume-tailor** (emphasis and
   rephrasing) — that skill makes edits; this one does not.
+- If there's no specific job in play and the user just wants the resume judged on its own
+  merits against best practices, that's **resume-critique** (a principles scorecard and a
+  recruiter's verdict, no JD).
 
 ## Guardrails
 - Read-only. This skill analyzes and advises; it never edits the master. Editing is

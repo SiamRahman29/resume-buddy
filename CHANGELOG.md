@@ -11,6 +11,15 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-22
+
+### Added
+- `resume-critique`: a JD-free, read-only companion to `resume-analyze` that judges a
+  resume on its own merits against the saved principles — a principles scorecard (each
+  dimension scored 0–10 plus an overall grade), a senior recruiter's verdict (what the
+  resume sells, strongest/weakest element, shortlist yes/no), and a ranked list of the
+  highest-leverage fixes.
+
 ## [0.3.0] - 2026-06-22
 
 ### Changed
@@ -56,7 +65,8 @@ update when that string changes (see [Releasing](README.md#releasing)).
   `resume-summarize`, `resume-analyze`, `cover-letter-write`.
 - Self-hosted plugin marketplace (`.claude-plugin/marketplace.json`).
 
-[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.0...v0.1.1

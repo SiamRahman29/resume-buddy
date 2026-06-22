@@ -88,6 +88,7 @@ For local development, troubleshooting, and releasing, see [DEVELOPMENT.md](DEVE
 | `/resume-tailor` | Tailor the resume (or a variant) to a pasted job description |
 | `/resume-summarize` | Rewrite the top-of-resume summary for a target role |
 | `/resume-analyze` | Three read-only passes vs. a JD: ATS keyword screen, 7-second hiring-manager scan, and a coach's apply/no-go read |
+| `/resume-critique` | JD-free read-only critique: a principles scorecard (0–10 per dimension + grade), a senior recruiter's verdict, and ranked fixes |
 | `/cover-letter-write` | Draft a three-paragraph cover letter grounded in the resume and a JD |
 ---
 

@@ -49,6 +49,10 @@ A Claude Code **plugin** for working on resumes in LaTeX. It bundles the
   missing keywords), 7-second hiring-manager scan (first impression, move-forward yes/no),
   and a coach's read (apply/no-go, interview probability, top changes). Read-only; advises,
   doesn't edit.
+- `resume-critique` — the JD-free companion to resume-analyze: judges the resume on its own
+  merits against the saved principles. Three passes: a principles scorecard (each dimension
+  0–10 + overall grade), a senior recruiter's verdict (what it sells, strongest/weakest,
+  shortlist yes/no), and ranked top fixes. Read-only; advises, doesn't edit.
 - `cover-letter-write` — write a three-paragraph cover letter grounded in the current
   resume and a JD (why this company, one proof story, confident close; never repeats the
   resume).
