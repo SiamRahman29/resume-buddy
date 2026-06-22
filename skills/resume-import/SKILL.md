@@ -45,7 +45,13 @@ Look in the working directory (and anywhere the user points you) for:
    folder. If the user wants a different filename/location, move it once.
 2. `validate_latex` on it. If it references missing packages or has errors, tell the
    user; offer to adapt it toward the starter template's package set.
-3. Record the master's path to persistent memory. Suggest **resume-build** for a PDF.
+3. If it compiles with `pdflatex` and the preamble has no scalable-font package
+   (no `lmodern`/`fontspec`/explicit Type 1 font), offer to add
+   `\usepackage[T1]{fontenc}` and `\usepackage{lmodern}` — these don't change content,
+   they just keep the PDF crisp (a minimal TeX install renders default Computer Modern
+   as fuzzy Type 3 bitmap fonts). Don't touch a file already using `fontspec`
+   (xelatex/lualatex) or a custom font.
+4. Record the master's path to persistent memory. Suggest **resume-build** for a PDF.
 
 ## First import — building the `.tex` (no `.tex` source)
 The goal is a `.tex` that faithfully reproduces whatever the user gave you. The starter
@@ -63,6 +69,9 @@ A PDF already *has* a finished design. Reproduce it; do not restyle it.
 3. Build the `.tex` to mirror that layout: same section order and headings, same
    column structure, same header, comparable fonts/spacing. Choose packages that match
    the look (e.g. two-column, font choice) rather than forcing the starter template's.
+   Always include `\usepackage[T1]{fontenc}` and a scalable-font package (`lmodern`, or
+   whatever matches the chosen typeface) so the PDF stays crisp — a minimal TeX install
+   emits fuzzy Type 3 bitmap fonts otherwise.
 4. **The result must land on the same number of pages, with content breaking across
    pages the same way.** If your first build runs long or short, adjust margins/spacing
    to match — do not cut or pad content to hit the count.
@@ -75,8 +84,10 @@ A `.md` resume is a given resume: reproduce it, don't reskin it with the templat
 1. Read the `.md`. Its headings, ordering, bullets, dates, and wording are authoritative.
 2. Write a clean LaTeX document that mirrors that structure — the same sections in the
    same order, the same bullets, the same wording, **verbatim, nothing added or
-   dropped**. Use a minimal, readable preamble; do **not** pull in the starter
-   template's design or macros.
+   dropped**. Use a minimal, readable preamble — always including
+   `\usepackage[T1]{fontenc}` and `\usepackage{lmodern}` so the PDF uses scalable
+   outline fonts (without them a minimal TeX install can emit fuzzy Type 3 bitmap
+   fonts); do **not** pull in the starter template's design or macros.
 3. Write the result as a `.tex` in the working directory (default `resume.tex`),
    `validate_latex`, then record its path to persistent memory.
 
@@ -110,3 +121,12 @@ everyone edits and builds from. Tell the user where the snapshot landed.
   count — say so, and call out any place LaTeX forced a compromise.
 - For any source: summarize what you imported and flag anything you couldn't reproduce
   faithfully (e.g. unreadable text, a font with no LaTeX equivalent).
+
+## Optional: flag (don't fix) best-practice issues
+After a faithful import, you may *gently flag* clear best-practice violations you noticed
+in the source against the Do's & Don'ts in
+`${CLAUDE_PLUGIN_ROOT}/references/resume-principles.md` — e.g. an Objective statement, a
+"References available upon request" line, un-quantified bullets, or "Responsible for"
+phrasing. **Only flag; never edit.** The iron rule still holds: import reproduces the
+source verbatim. Point the user at **resume-tailor** / **resume-summarize** to act on
+anything they want to change.

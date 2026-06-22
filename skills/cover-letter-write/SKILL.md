@@ -10,6 +10,10 @@ allowed-tools: [Bash, Read, Write, mcp__latex-server__read_latex_file]
 Act as a cover letter writer. Given the user's resume and a job description, write a
 three-paragraph cover letter that complements the resume instead of repeating it.
 
+**See `${CLAUDE_PLUGIN_ROOT}/references/resume-principles.md`** — the action-verb bank
+(section 2) and the no-fabrication rule that runs through it apply to the letter's prose
+too.
+
 ## Preconditions
 - A master `.tex` exists. Resolve it from persistent memory; if none is recorded, look
   for a `.tex` in the working directory (or ask the user which file to use). If there's

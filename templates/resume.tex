@@ -1,87 +1,102 @@
-% Resume Buddy — starter template
-% Compiles with pdflatex (no exotic classes). Standard packages only:
-% geometry, enumitem, titlesec, hyperref, xcolor.
-%
-% This file is COMMITTED scaffolding. When a user arrives with only a .md/.pdf,
-% the agent copies this into a .tex in the working directory and fills in the
-% content. Once filled, that file is the editable master.
-
-\documentclass[letterpaper,11pt]{article}
-
-\usepackage[margin=0.6in]{geometry}
-\usepackage{enumitem}
-\usepackage{titlesec}
-\usepackage{xcolor}
-\usepackage[hidelinks]{hyperref}
-
-% --- Layout tuning -----------------------------------------------------------
-\pagestyle{empty}
+\documentclass[11pt]{article}
+\usepackage{graphicx} % Required for inserting images
 \setlength{\parindent}{0pt}
-\definecolor{accent}{HTML}{1A1A1A}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[left=1.06cm,top=1.7cm,right=1.06cm,bottom=0.49cm]{geometry}
 
-% Section headings: small caps, rule underneath
-\titleformat{\section}{\large\bfseries\scshape\color{accent}}{}{0pt}{}[\titlerule]
-\titlespacing{\section}{0pt}{10pt}{6pt}
 
-% --- Reusable macros ---------------------------------------------------------
-% Header block: \name, contact line
-\newcommand{\resumename}[1]{\begin{center}\textbf{\Huge #1}\end{center}}
-\newcommand{\contact}[1]{\begin{center}\small #1\end{center}\vspace{2pt}}
 
-% One role/entry: title, right-aligned dates, then subtitle, right-aligned location
-\newcommand{\entry}[4]{%
-  \noindent\textbf{#1}\hfill{\small #2}\\
-  \textit{#3}\hfill{\small\textit{#4}}\par\vspace{2pt}}
 
-% Bullet list with tight spacing
-\newenvironment{points}
-  {\begin{itemize}[leftmargin=1.4em,topsep=2pt,itemsep=1pt,parsep=0pt]}
-  {\end{itemize}}
+%by: Aline R. Antunes
 
-% =============================================================================
 \begin{document}
+\begin{center}
+    \textbf{Firstname Lastname}\\
+    \hrulefill
+\end{center}
 
-\resumename{Full Name}
-\contact{City, Country \;|\; +1 555 555 5555 \;|\;
-  \href{mailto:you@example.com}{you@example.com} \;|\;
-  \href{https://linkedin.com/in/handle}{linkedin.com/in/handle} \;|\;
-  \href{https://github.com/handle}{github.com/handle}}
+\begin{center}
+    Home or Campus Street Address \textbullet \ City, State Zip \textbullet \ youremail@college.harvard.edu \textbullet \ phone number
+\end{center}
 
-% --- Experience --------------------------------------------------------------
-\section{Experience}
+\vspace{0.5pt}
 
-\entry{Job Title}{Mon. YYYY -- Present}{Company \textnormal{|} \textit{Tech, Stack, Here}}{City, Country}
-\begin{points}
-  \item Achievement with a concrete, quantified result (raised X from A\% to B\%).
-  \item Scope and impact: what you built, for whom, and the outcome.
-\end{points}
+\begin{center}
+    \textbf{Education}
+\end{center}
+\textbf{Harvard University} \hfill Cambridge, MA
 
-\entry{Previous Title}{Mon. YYYY -- Mon. YYYY}{Company \textnormal{|} \textit{Tech, Stack}}{City, Country}
-\begin{points}
-  \item Quantified accomplishment.
-  \item Another bullet.
-\end{points}
+Degree, Concentration. GPA [Note: GPA is Optional] \hfill Graduation Date Thesis [Note: Optional]
 
-% --- Education ---------------------------------------------------------------
-\section{Education}
+Relevant Coursework: [Note: Optional. Awards and honors can also be listed here.]
 
-\entry{University Name}{Mon. YYYY -- Mon. YYYY}{Degree, Major}{City, Country}
-\begin{points}
-  \item GPA, honors, relevant awards.
-\end{points}
+\vspace{12pt}
 
-% --- Projects ----------------------------------------------------------------
-\section{Projects}
+\textbf{Study Abroad} [Note: If Applicable] \hfill City, Country
 
-\entry{Project Name}{Mon. YYYY -- Present}{\textit{Tech, Stack}}{}
-\begin{points}
-  \item What it does and why it matters.
-\end{points}
+Study abroad coursework in   . \hfill    Month Year – Month Year
 
-% --- Skills ------------------------------------------------------------------
-\section{Skills}
+\vspace{12pt}
 
-\textbf{Languages}: list \\
-\textbf{Tools \& Frameworks}: list
+\textbf{High School Name} \hfill    City, State
+
+[Note: May include GPA, SAT/ACT scores, or academic honors an employer may want to know] \hfill Graduation Date
+
+\vspace{12pt}
+
+\begin{center}
+    \textbf{Experience}
+\end{center}
+\textbf{Organization} \hfill City, State (or Remote)
+
+\textbf{Position Title} \hfill Month Year – Month Year
+\begin{itemize}[noitemsep, topsep=0pt, partopsep=0pt, parsep=0pt]
+    \item Beginning with your most recent position, describe your experience, skills, and resulting outcomes in bullet or paragraph form.
+    \item Begin each line with an action verb and include details that will help the reader understand your accomplishments, skills, knowledge, abilities, or achievements.
+    \item Quantify where possible.
+    \item Do not use personal pronouns; each line should be a phrase rather than a full sentence.
+\end{itemize}
+
+\vspace{12pt}
+
+\textbf{Organization} \hfill City, State (or Remote)
+
+\textbf{Position Title} \hfill Month Year – Month Year
+\begin{itemize}[noitemsep, topsep=0pt, partopsep=0pt, parsep=0pt]
+    \item With your next-most recent position, describe your experience, skills, and resulting outcomes in bullet or paragraph form.
+    \item Begin each line with an action verb and include details that will help the reader understand your accomplishments, skills, knowledge, abilities, or achievements.
+    \item Quantify where possible.
+    \item Do not use personal pronouns; each line should be a phrase rather than a full sentence.
+\end{itemize}
+
+\begin{center}
+    \textbf{Leadership \& Activities}
+\end{center}
+
+\textbf{Organization}    \hfill City, State
+
+\textbf{Role} \hfill Month Year – Month Year
+\begin{itemize}[noitemsep, topsep=0pt, partopsep=0pt, parsep=0pt]
+    \item This section can be formatted similarly to the Experience section, or you can omit descriptions for activities.
+    \item If this section is more relevant to the opportunity you are applying for, consider moving this above your Experience section.
+\end{itemize}
+
+\begin{center}
+    \textbf{Skills \& Interests [Note: Optional]}
+\end{center}
+
+\textbf{Technical:} List computer software and programming languages
+
+\textbf{Language:} List foreign languages and your level of fluency
+
+\textbf{Laboratory:} List scientific / research lab techniques or tools [If Applicable]
+
+\textbf{Interests:} List activities you enjoy that may spark interview conversation
+
+
+
 
 \end{document}

@@ -9,6 +9,11 @@ allowed-tools: [Bash, Read, Write, mcp__latex-server__validate_latex]
 
 Start a resume from scratch for a user who has nothing to import yet.
 
+Always seed from the bundled starter `${CLAUDE_PLUGIN_ROOT}/templates/resume.tex`. For
+any judgment call along the way — section order, what to include or omit (e.g. GPA,
+relevant coursework, a high-school entry), how to phrase seeded guidance — follow
+`${CLAUDE_PLUGIN_ROOT}/references/resume-principles.md`.
+
 ## When to use
 - Brand-new user with no existing resume — they want a blank slate to build on.
 - If the user already HAS a resume (a `.tex` in the working directory, or a

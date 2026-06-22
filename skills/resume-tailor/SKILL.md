@@ -9,6 +9,10 @@ allowed-tools: [Bash, Read, Write, mcp__latex-server__read_latex_file, mcp__late
 
 Tailor the resume to a specific job description (JD).
 
+**Read `${CLAUDE_PLUGIN_ROOT}/references/resume-principles.md` first** — sections 1
+(ATOP bullet formula), 2 (action-verb bank), 3 (Do's & Don'ts), and 7 (targeting to a
+JD) are the standards this skill applies when rewriting bullets and aligning language.
+
 ## Preconditions
 - A master `.tex` exists. Resolve it from persistent memory; if none is recorded, look
   for a `.tex` in the working directory (or ask the user). If there's no resume, run

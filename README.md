@@ -11,6 +11,10 @@ this for a senior backend role"), and it edits the LaTeX and produces an updated
 
 This plugin incorporates prompts and techniques from [@jerryjhlee](https://www.instagram.com/jerryjhlee). Check out his account for more career advice!
 
+The resume-writing standards the skills apply — bullet structure, action verbs, formatting,
+and what to include — are distilled from the [Dartmouth College CPD Resume Guide](https://www.dartmouth.edu/~cpd/),
+captured in [`references/resume-principles.md`](references/resume-principles.md).
+
 ---
 
 ## Prerequisites

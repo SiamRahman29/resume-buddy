@@ -7,6 +7,11 @@ allowed-tools: [Bash, Read, mcp__latex-server__read_latex_file]
 
 # resume-analyze
 
+**Read `${CLAUDE_PLUGIN_ROOT}/references/resume-principles.md` first** — section 3
+(Do's & Don'ts) is the checklist behind the coach read, section 6 (ATS-friendliness) the
+basis for flagging ATS-hostile formatting, and section 8 (industry notes) calibrates the
+7-second scan to the target industry.
+
 Given a job description and the user's resume, run three passes:
 
 1. **ATS screen** — act as the applicant-tracking system filtering resumes for the target

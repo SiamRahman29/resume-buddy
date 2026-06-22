@@ -12,6 +12,10 @@ rewrite the summary section (the 3–4 sentence profile/summary at the top of th
 so that a recruiter skimming it for 5 seconds immediately knows the user is the right
 person for this role.
 
+**Read `${CLAUDE_PLUGIN_ROOT}/references/resume-principles.md` first** — section 5
+(a targeted Summary, not an Objective, leads the resume) and section 7 (mirror the
+role's honest language) inform this rewrite.
+
 ## Preconditions
 - A master `.tex` exists. Resolve it from persistent memory; if none is recorded, look
   for a `.tex` in the working directory (or ask the user which file to use). If there's

@@ -11,6 +11,20 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-22
+
+### Added
+- `references/resume-principles.md`: a shared knowledge base of transferable
+  resume-writing standards (ATOP bullet formula, action-verb bank, Do's & Don'ts,
+  formatting, ATS-friendliness, targeting, industry notes) distilled from the Dartmouth
+  College CPD Resume Guide.
+
+### Changed
+- Skills now cite the shared principles instead of re-deriving guidance: `resume-tailor`,
+  `resume-summarize`, `resume-analyze`, `resume-import` (flag-only), `cover-letter-write`,
+  and `resume-init` (judgment calls).
+- `templates/resume.tex`: reworked the starter into a cleaner, principles-aligned layout.
+
 ## [0.1.1] - 2026-06-21
 
 ### Changed
@@ -35,6 +49,7 @@ update when that string changes (see [Releasing](README.md#releasing)).
   `resume-summarize`, `resume-analyze`, `cover-letter-write`.
 - Self-hosted plugin marketplace (`.claude-plugin/marketplace.json`).
 
-[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/SiamRahman29/resume-buddy/releases/tag/v0.1.0
