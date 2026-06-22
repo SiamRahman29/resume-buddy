@@ -31,12 +31,16 @@ You need to install uv and a LaTeX engine. Run the following commands in your *t
 
 #### macOS/Linux/WSL
 ```
-curl -LsSf https://astral.sh/uv/install.sh \| sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 Then:
 ```
 curl -sL "https://yihui.org/tinytex/install-bin-unix.sh" | sh
 ```
+> **Open a new terminal after this.** The TinyTeX installer adds `pdflatex` to your
+> `PATH`, but existing shells won't see it until they're restarted. (Sanity check in the
+> fresh terminal: `pdflatex --version`.)
+
 Then start a claude code session. From inside claude code, run:
 ```
 /plugin marketplace add SiamRahman29/resume-buddy
@@ -49,11 +53,11 @@ If you choose to install the plugin repo-only, you will only be able to use the 
 
 #### Windows (Powershell)
 ```
-irm https://astral.sh/uv/install.ps1 \| iex
+irm https://astral.sh/uv/install.ps1 | iex
 ```
 then:
 ```
-Invoke-WebRequest https://yihui.org/tinytex/install-bin-windows.bat -OutFile install-tinytex.bat; ./install-tinytex.bat
+irm https://tinytex.yihui.org/install-bin-windows.ps1 | iex
 ```
 Then start a claude code session. From inside claude code, run:
 ```
