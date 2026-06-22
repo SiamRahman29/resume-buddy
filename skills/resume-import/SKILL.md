@@ -1,7 +1,7 @@
 ---
 name: resume-import
 description: This skill should be used when the user wants to bring an existing resume into Resume Buddy — phrases like "import my resume", "I dropped my resume in", "use my markdown/pdf resume", "convert my resume to latex". Handles both first import and re-importing an updated file into the existing LaTeX master.
-version: 0.4.0
+version: 0.5.0
 allowed-tools: [Bash, Read, Write, mcp__latex-server__read_latex_file, mcp__latex-server__edit_latex_file, mcp__latex-server__create_latex_file, mcp__latex-server__validate_latex, mcp__latex-server__compile_latex]
 ---
 
@@ -22,6 +22,24 @@ Once imported, change the master only when the user explicitly asks — then app
 edits to the LaTeX directly with `edit_latex_file`. The starter template is **only** for
 generating a resume from details the user types into the prompt; never impose it on a
 resume the user already has.
+
+## Iron rule: reproduce the *typography*, not just the words
+Content fidelity is not enough — **the look of every element must match the source
+exactly.** Reproducing the text while flattening its styling is a failed import. For
+each piece of text, carry over **all four** typographic dimensions:
+- **Font / typeface** — serif vs. sans, the actual family if identifiable.
+- **Font size** — relative hierarchy at minimum (the name is the largest thing on the
+  page; section headings are larger than body; body is uniform). Match LaTeX size
+  commands (`\Huge`, `\Large`, `\large`, `\normalsize`, …) to the source's scale.
+- **Weight** — bold vs. regular vs. light. **If a word is bold in the source it MUST be
+  bold in the `.tex`** (`\textbf{…}`), and if it's regular it must stay regular.
+- **Color** — any non-black text (headings, name, rules, links) is reproduced with the
+  matching color via `xcolor` (`\textcolor{…}` / `\color{…}`); estimate the hex if it
+  isn't pure black.
+
+This applies to every styled element — the header, section headings, job titles, company
+names, and dates each carry their own weight, size, and color that must be preserved, not
+flattened to plain body text.
 
 ## Find the source
 Look in the working directory (and anywhere the user points you) for:
@@ -61,7 +79,8 @@ where there is no source document to reproduce.
 ### PDF — match it exactly
 A PDF already *has* a finished design. Reproduce it; do not restyle it.
 1. Read the PDF and inventory its layout before writing any LaTeX: section order and
-   headings, one-column vs. two-column, the header/contact block, fonts and weights,
+   headings, one-column vs. two-column, the header/contact block, the **font, size,
+   weight, and color** of each styled element (see the typography iron rule above),
    bullet vs. paragraph style, spacing/rules, and **the page count and where each page
    breaks**.
 2. Capture **all content verbatim** — every role, date range, bullet, number, skill,
