@@ -11,6 +11,21 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+### Added
+- `resume-scrape`: collect job postings from a listing page (e.g. a LinkedIn jobs
+  search) into a local `jobs/` folder for batch tailoring. Uses a human-in-the-loop
+  login — it opens a *visible* browser, the user logs in themselves, then Claude drives
+  the already-authenticated session to gather each posting's title, company, location,
+  and description. Scraped content is treated as untrusted data, never instructions.
+- Vendored the gstack `browse` subsystem (MIT) under `vendor/browse/` as the browser
+  engine for `resume-scrape`. Source-only: deps and Chromium install on first run via
+  `bun`, mirroring how the LaTeX server builds on first use with `uv`. Adds `bun` and
+  `node` as prerequisites for the scraping workflow only.
+- `skills/resume-scrape/scripts/linkedin-extract.js`: the posting extractor, anchored on
+  `document.title`, the "About the job" heading, and `data-testid` hooks rather than
+  LinkedIn's hashed, server-driven-UI class names. Verified against a live logged-in
+  search: 25/25 postings captured with full descriptions.
+
 ## [0.4.0] - 2026-06-22
 
 ### Added

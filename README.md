@@ -23,8 +23,12 @@ captured in [`references/resume-principles.md`](references/resume-principles.md)
 | Claude Code | The harness we'll use |
 | uv | Runs the Python MCP Server |
 | TinyTeX | A LaTeX engine for build operations |
+| bun + node | *Only for `/resume-scrape`* — the browser engine that pulls job postings |
 
 Already have **MiKTeX**, **MacTeX**, or **TeX Live**? Any distribution with `pdflatex` on your `PATH` works.
+
+`bun` and `node` are needed **only** if you use `/resume-scrape`; the rest of the plugin
+works without them. The first scrape downloads Chromium (~150 MB, one-time).
 
 ---
 
@@ -86,6 +90,7 @@ For local development, troubleshooting, and releasing, see [DEVELOPMENT.md](DEVE
 | `/resume-import` | Bring in an existing resume (`.tex` directly, or fill the template from `.md`/`.pdf`); re-imports merge into the master |
 | `/resume-build` | Compile the master to a PDF in `build/` |
 | `/resume-tailor` | Tailor the resume (or a variant) to a pasted job description |
+| `/resume-scrape` | Collect job postings from a listing page (e.g. a LinkedIn search) into a `jobs/` folder — you log into a visible browser, then it gathers each posting |
 | `/resume-summarize` | Rewrite the top-of-resume summary for a target role |
 | `/resume-analyze` | Three read-only passes vs. a JD: ATS keyword screen, 7-second hiring-manager scan, and a coach's apply/no-go read |
 | `/resume-critique` | JD-free read-only critique: a principles scorecard (0–10 per dimension + grade), a senior recruiter's verdict, and ranked fixes |

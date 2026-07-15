@@ -1,0 +1,12 @@
+{
+  "name": "resume-buddy-browse",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Vendored gstack browse subsystem (headless/headed browser driver) for resume-buddy's resume-scrape skill. Source-only: built and run on first use via bun. Upstream: https://github.com/garryod/gstack (MIT).",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "diff": "^7.0.0",
+    "playwright": "^1.58.2"
+  }
+}
