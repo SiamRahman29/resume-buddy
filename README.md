@@ -91,6 +91,7 @@ For local development, troubleshooting, and releasing, see [DEVELOPMENT.md](DEVE
 | `/resume-build` | Compile the master to a PDF in `build/` |
 | `/resume-tailor` | Tailor the resume (or a variant) to a pasted job description |
 | `/resume-scrape` | Collect job postings from a listing page (e.g. a LinkedIn search) into a `jobs/` folder — you log into a visible browser, then it gathers each posting |
+| `/resume-batch` | Tailor across a whole `jobs/` folder: clusters similar roles so they share one tailored variant, ranks by fit, and writes per-job cover letters |
 | `/resume-summarize` | Rewrite the top-of-resume summary for a target role |
 | `/resume-analyze` | Three read-only passes vs. a JD: ATS keyword screen, 7-second hiring-manager scan, and a coach's apply/no-go read |
 | `/resume-critique` | JD-free read-only critique: a principles scorecard (0–10 per dimension + grade), a senior recruiter's verdict, and ranked fixes |

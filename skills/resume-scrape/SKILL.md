@@ -173,9 +173,9 @@ ends with a trailing newline or `while read` will silently drop the last job.
 
 Then summarize: how many postings landed in `jobs/`, as a short table (company — title —
 location), and note any that failed to scrape (login wall, removed posting, blocked).
-Hand off: tell the user they can now tailor against these — clustering similar roles so
-near-identical jobs share one tailored resume, and generating cover letters — which is
-what the batch-tailoring step (coming next) will do over the `jobs/` folder.
+Hand off to **resume-batch**, which works over the `jobs/` folder: it triages the postings
+for fit, clusters similar roles so near-identical jobs share one tailored resume, and
+writes per-job cover letters.
 
 ## Notes
 

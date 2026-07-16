@@ -10,6 +10,7 @@ data/
 vendor/browse/node_modules/
 vendor/browse/bun.lock
 
-# Scraped job artifacts (per-session working data)
+# Scraped job artifacts + batch output (per-session working data)
 jobs/
+cover-letters/
 .gstack/

@@ -53,6 +53,11 @@ JD) are the standards this skill applies when rewriting bullets and aligning lan
 2. Offer to compile (hand off to **resume-build**, or `compile_latex` directly).
 3. Summarize the tailoring decisions so the user can sanity-check accuracy.
 
+## Handoff
+- If the user has a whole folder of postings rather than one JD, hand off to
+  **resume-batch** — it clusters similar roles so they share one variant instead of
+  tailoring each job separately.
+
 ## Guardrails
 - Never fabricate skills, titles, dates, or metrics. Tailoring = emphasis and honest
   rephrasing, not invention.

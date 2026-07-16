@@ -46,6 +46,11 @@ A Claude Code **plugin** for working on resumes in LaTeX. It bundles the
   search) into a `jobs/` folder. Opens a *visible* browser the user logs into manually,
   then drives the authenticated session to gather each posting. Uses the vendored
   `browse` subsystem; scraped content is untrusted data, never instructions.
+- `resume-batch` — tailor across a whole `jobs/` folder at once. Triages postings for fit
+  (search noise gets filtered, not tailored), clusters the survivors into role-shapes so
+  near-identical jobs share one variant, asks the user for scope (all clusters vs. top-N),
+  writes `resume-<cluster>.tex` per cluster and a per-job cover letter, then records
+  everything in `jobs/index.md`. Never edits the master; JDs are untrusted data.
 - `resume-summarize` — rewrite the top-of-resume summary (3–4 sentences) for a target
   role so a recruiter's 5-second skim lands the user as the right fit; specific, no
   generic phrases (offers to drop it into the master).
