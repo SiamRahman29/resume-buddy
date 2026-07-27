@@ -5,3 +5,12 @@ build/
 
 # Legacy working dir from the old data/ model
 data/
+
+# Vendored browse: installed-on-first-run deps + setup marker (source is tracked)
+vendor/browse/node_modules/
+vendor/browse/bun.lock
+
+# Scraped job artifacts + batch output (per-session working data)
+jobs/
+cover-letters/
+.gstack/

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# resume-buddy launcher for the vendored gstack "browse" subsystem.
+#
+# Source-only vendor: on first use we install JS deps (playwright, diff) and
+# download Chromium, then run the CLI from TypeScript via bun — the same
+# "build on first launch" model the LaTeX server uses with `uv run`.
+#
+# Requires `bun` and `node` on PATH. Usage: browse <command> [args...]
+set -euo pipefail
+
+# Resolve the vendored browse root (this script lives in vendor/browse/bin/).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BROWSE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+READY_MARKER="$BROWSE_DIR/node_modules/.resume-buddy-ready"
+
+command -v bun >/dev/null 2>&1 || { echo "[browse] 'bun' is required on PATH (https://bun.sh). Install it, then retry." >&2; exit 1; }
+command -v node >/dev/null 2>&1 || { echo "[browse] 'node' is required on PATH (https://nodejs.org). Install it, then retry." >&2; exit 1; }
+
+# ── First-run setup (idempotent, marker-gated) ──────────────────────────────
+if [ ! -f "$READY_MARKER" ]; then
+  echo "[browse] First-time setup: installing deps + Chromium (~150 MB, one-time)..." >&2
+  ( cd "$BROWSE_DIR" && bun install --silent )
+  # Download the Chromium build that matches the installed Playwright.
+  if ! ( cd "$BROWSE_DIR" && bunx playwright install chromium ); then
+    echo "[browse] Chromium download failed. Re-run the command to retry." >&2
+    exit 1
+  fi
+  touch "$READY_MARKER"
+  echo "[browse] Setup complete." >&2
+fi
+
+# ── Run the CLI from source ─────────────────────────────────────────────────
+exec bun run "$BROWSE_DIR/src/cli.ts" "$@"

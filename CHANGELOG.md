@@ -11,6 +11,30 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-16
+
+### Added
+- `resume-batch`: tailor across a whole `jobs/` folder in one pass. Triages postings for
+  genuine fit (keyword searches drag in unrelated roles — those get filtered, not
+  tailored), clusters the survivors by the shape of resume they need rather than by job
+  title, so near-identical roles share one variant instead of spawning a throwaway each.
+  The user picks scope (all clusters vs. top-N by fit); each selected cluster yields a
+  `resume-<cluster>.tex`, each job a company-specific cover letter, and `jobs/index.md`
+  records the whole search. Never edits the master.
+- `resume-scrape`: collect job postings from a listing page (e.g. a LinkedIn jobs
+  search) into a local `jobs/` folder for batch tailoring. Uses a human-in-the-loop
+  login — it opens a *visible* browser, the user logs in themselves, then Claude drives
+  the already-authenticated session to gather each posting's title, company, location,
+  and description. Scraped content is treated as untrusted data, never instructions.
+- Vendored the gstack `browse` subsystem (MIT) under `vendor/browse/` as the browser
+  engine for `resume-scrape`. Source-only: deps and Chromium install on first run via
+  `bun`, mirroring how the LaTeX server builds on first use with `uv`. Adds `bun` and
+  `node` as prerequisites for the scraping workflow only.
+- `skills/resume-scrape/scripts/linkedin-extract.js`: the posting extractor, anchored on
+  `document.title`, the "About the job" heading, and `data-testid` hooks rather than
+  LinkedIn's hashed, server-driven-UI class names. Verified against a live logged-in
+  search: 25/25 postings captured with full descriptions.
+
 ## [0.4.0] - 2026-06-22
 
 ### Added
@@ -65,7 +89,8 @@ update when that string changes (see [Releasing](README.md#releasing)).
   `resume-summarize`, `resume-analyze`, `cover-letter-write`.
 - Self-hosted plugin marketplace (`.claude-plugin/marketplace.json`).
 
-[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.1.1...v0.2.0
