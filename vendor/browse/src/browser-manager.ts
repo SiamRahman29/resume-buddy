@@ -98,6 +98,86 @@ export class BrowserManager {
   }
 
   /**
+   * Rebrand Chromium → GStack Browser without breaking its code signature.
+   *
+   * We used to patch Info.plist/icon directly on Playwright's downloaded
+   * .app bundle. That bundle is codesigned by Google; patching files inside
+   * it in place invalidates the signature. macOS still allows the initial
+   * launch, but kills the process a few seconds later — when it spawns a
+   * new sandboxed renderer/GPU helper process (e.g. navigating to a heavier
+   * page) and Gatekeeper/AMFI re-checks the signature and finds it broken.
+   *
+   * Fix: copy the .app bundle once (cached under ~/.gstack/chromium-branded,
+   * invalidated on Playwright Chromium version changes), patch the copy,
+   * then ad-hoc re-sign it (`codesign --sign -`) so the copy is a
+   * self-consistent bundle macOS will run. The original bundle Playwright
+   * downloaded is never touched. macOS-only; other platforms return the
+   * original path unchanged.
+   */
+  private resolveBrandedChromiumPath(originalExecutablePath: string): string {
+    if (process.platform !== 'darwin') return originalExecutablePath;
+
+    const fs = require('fs');
+    const path = require('path');
+
+    const appMatch = originalExecutablePath.match(/^(.*\.app)\/Contents\/MacOS\/(.+)$/);
+    if (!appMatch) return originalExecutablePath;
+    const [, originalAppPath, execName] = appMatch;
+
+    const brandedDir = path.join(process.env.HOME || '/tmp', '.gstack', 'chromium-branded');
+    const brandedAppPath = path.join(brandedDir, 'GStack Browser.app');
+    const markerPath = path.join(brandedDir, '.source');
+    const brandedExecPath = path.join(brandedAppPath, 'Contents', 'MacOS', execName);
+
+    try {
+      const sourceStat = fs.statSync(originalAppPath);
+      const sourceTag = `${originalAppPath}@${sourceStat.mtimeMs}`;
+      const marker = fs.existsSync(markerPath) ? fs.readFileSync(markerPath, 'utf-8') : '';
+
+      if (marker !== sourceTag || !fs.existsSync(brandedExecPath)) {
+        fs.rmSync(brandedAppPath, { recursive: true, force: true });
+        fs.mkdirSync(brandedDir, { recursive: true });
+
+        const cp = Bun.spawnSync(['cp', '-R', originalAppPath, brandedAppPath], { stderr: 'pipe' });
+        if (cp.exitCode !== 0) throw new Error(`cp failed: ${cp.stderr?.toString()}`);
+
+        // Patch Info.plist + Dock icon on the COPY, not the original.
+        const plistPath = path.join(brandedAppPath, 'Contents', 'Info.plist');
+        if (fs.existsSync(plistPath)) {
+          const plistContent = fs.readFileSync(plistPath, 'utf-8');
+          fs.writeFileSync(plistPath, plistContent.replace(/Google Chrome for Testing/g, 'GStack Browser'));
+
+          const iconCandidates = [
+            path.join(__dirname, '..', '..', 'scripts', 'app', 'icon.icns'),       // repo dev mode
+            path.join(process.env.HOME || '', '.claude', 'skills', 'gstack', 'scripts', 'app', 'icon.icns'), // global install
+          ];
+          const iconSrc = iconCandidates.find((p: string) => fs.existsSync(p));
+          if (iconSrc) {
+            const iconMatch = plistContent.match(/<key>CFBundleIconFile<\/key>\s*<string>([^<]+)<\/string>/);
+            let origIcon = iconMatch ? iconMatch[1] : 'app';
+            if (!origIcon.endsWith('.icns')) origIcon += '.icns';
+            const destIcon = path.join(brandedAppPath, 'Contents', 'Resources', origIcon);
+            try { fs.copyFileSync(iconSrc, destIcon); } catch { /* non-fatal */ }
+          }
+        }
+
+        // Ad-hoc re-sign — patching above invalidated Google's original
+        // signature; this restores a self-consistent bundle so Gatekeeper/
+        // AMFI won't kill the process when it spawns helper processes.
+        const sign = Bun.spawnSync(['codesign', '--force', '--deep', '--sign', '-', brandedAppPath], { stderr: 'pipe' });
+        if (sign.exitCode !== 0) throw new Error(`codesign failed: ${sign.stderr?.toString()}`);
+
+        fs.writeFileSync(markerPath, sourceTag);
+      }
+
+      return brandedExecPath;
+    } catch (err: any) {
+      console.warn(`[browse] Could not create branded Chromium copy: ${err.message}. Falling back to unbranded launch.`);
+      return originalExecutablePath;
+    }
+  }
+
+  /**
    * Find the gstack Chrome extension directory.
    * Checks: repo root /extension, global install, dev install.
    */
@@ -255,45 +335,11 @@ export class BrowserManager {
     fs.mkdirSync(userDataDir, { recursive: true });
 
     // Support custom Chromium binary via GSTACK_CHROMIUM_PATH env var.
-    // Used by GStack Browser.app to point at the bundled Chromium.
-    const executablePath = process.env.GSTACK_CHROMIUM_PATH || undefined;
-
-    // Rebrand Chromium → GStack Browser in macOS menu bar / Dock / Cmd+Tab.
-    // Patch the Chromium .app's Info.plist so macOS shows our name.
-    // This works for both dev mode (system Playwright cache) and .app bundle.
-    const chromePath = executablePath || chromium.executablePath();
-    try {
-      // Walk up from binary to the .app's Info.plist
-      // e.g. .../Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing
-      //   → .../Google Chrome for Testing.app/Contents/Info.plist
-      const chromeContentsDir = path.resolve(path.dirname(chromePath), '..');
-      const chromePlist = path.join(chromeContentsDir, 'Info.plist');
-      if (fs.existsSync(chromePlist)) {
-        const plistContent = fs.readFileSync(chromePlist, 'utf-8');
-        if (plistContent.includes('Google Chrome for Testing')) {
-          const patched = plistContent
-            .replace(/Google Chrome for Testing/g, 'GStack Browser');
-          fs.writeFileSync(chromePlist, patched);
-        }
-        // Replace Chromium's Dock icon with ours (Chromium's process owns the Dock icon)
-        const iconCandidates = [
-          path.join(__dirname, '..', '..', 'scripts', 'app', 'icon.icns'),       // repo dev mode
-          path.join(process.env.HOME || '', '.claude', 'skills', 'gstack', 'scripts', 'app', 'icon.icns'), // global install
-        ];
-        const iconSrc = iconCandidates.find(p => fs.existsSync(p));
-        if (iconSrc) {
-          const chromeResources = path.join(chromeContentsDir, 'Resources');
-          // Read original icon name from plist
-          const iconMatch = plistContent.match(/<key>CFBundleIconFile<\/key>\s*<string>([^<]+)<\/string>/);
-          let origIcon = iconMatch ? iconMatch[1] : 'app';
-          if (!origIcon.endsWith('.icns')) origIcon += '.icns';
-          const destIcon = path.join(chromeResources, origIcon);
-          try { fs.copyFileSync(iconSrc, destIcon); } catch { /* non-fatal */ }
-        }
-      }
-    } catch {
-      // Non-fatal: app name just stays as Chrome for Testing
-    }
+    // Used by GStack Browser.app to point at the bundled Chromium (already
+    // branded — no patching needed).
+    const executablePathOverride = process.env.GSTACK_CHROMIUM_PATH || undefined;
+    const executablePath = executablePathOverride
+      || this.resolveBrandedChromiumPath(chromium.executablePath());
 
     // Build custom user agent: keep Chrome version for site compatibility,
     // but replace "Chrome for Testing" branding with "GStackBrowser"
