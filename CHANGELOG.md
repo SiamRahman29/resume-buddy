@@ -11,6 +11,20 @@ update when that string changes (see [Releasing](README.md#releasing)).
 
 ## [Unreleased]
 
+## [0.5.1] - 2026-07-28
+
+### Fixed
+- `resume-scrape`: the vendored `browse` launcher rebranded Chromium by patching
+  Playwright's shared, global Chromium `.app` bundle (Info.plist + icon) in place,
+  mutating a cache other Playwright-based tools may also use. Now patches a private
+  copy under `~/.gstack/chromium-branded` and ad-hoc re-signs it, leaving Playwright's
+  own download untouched.
+
+### Documentation
+- `resume-scrape`: note that LinkedIn's passkey/Touch ID sign-in can't complete in the
+  vendored browser (it isn't a signed, entitled app) — it hands off to an empty Safari
+  tab and closes the gstack window. Use email + password instead.
+
 ## [0.5.0] - 2026-07-16
 
 ### Added
@@ -89,7 +103,8 @@ update when that string changes (see [Releasing](README.md#releasing)).
   `resume-summarize`, `resume-analyze`, `cover-letter-write`.
 - Self-hosted plugin marketplace (`.claude-plugin/marketplace.json`).
 
-[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/SiamRahman29/resume-buddy/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/SiamRahman29/resume-buddy/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/SiamRahman29/resume-buddy/compare/v0.2.0...v0.3.0

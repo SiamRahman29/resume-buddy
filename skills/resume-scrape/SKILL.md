@@ -1,7 +1,7 @@
 ---
 name: resume-scrape
 description: This skill should be used when the user wants to pull job postings from a listing page (e.g. a LinkedIn jobs search) into Resume Buddy — phrases like "scrape these jobs", "grab the jobs from this LinkedIn search", "import job postings from this link", "I have a page with 20 jobs", or when they paste a LinkedIn/job-board search URL and want the postings collected for tailoring. Opens a real browser the user logs into, then collects each job's description into a jobs/ folder.
-version: 0.1.0
+version: 0.1.1
 allowed-tools: [Bash, Read, Write, AskUserQuestion, mcp__latex-server__read_latex_file]
 ---
 
@@ -75,6 +75,11 @@ stale and give false negatives.
 If they're not logged in, **stop and tell the user**, in your own words:
 
 > A browser window just opened. Log into LinkedIn there, then tell me to continue.
+>
+> On the login screen, use **email + password** (or "Sign in another way"), not "Sign in
+> with a passkey" — this browser isn't a signed, entitled app, so it can't complete
+> macOS's passkey/Touch ID ceremony. Choosing passkey hands the request off to Safari
+> (an empty tab) and the gstack window closes.
 
 Wait for them. They usually won't have to repeat this in future sessions.
 
